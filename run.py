@@ -69,6 +69,14 @@ def update_sales_worksheet(data):
     sales_worksheet.append_row(data)
     print("Sales worksheet updated successfully.\n")
 
+def update_surplus_worksheet(data):
+    """
+    Update surplus worksheet, add new row with the list data provided.
+    """
+    print("Updating surplus worksheet...\n")
+    surplus_worksheet = SHEET.worksheet("surplus") 
+    surplus_worksheet.append_row(data)
+    print("Surplus worksheet updated successfully.\n")
 
 def calulate_surplus_data(sales_row):
     """
@@ -82,6 +90,7 @@ def calulate_surplus_data(sales_row):
     # gspread get_all_values() method gets all of the cells from the 'stock' worksheet
     stock = SHEET.worksheet("stock").get_all_values()
     stock_row = stock[-1] # Slice the final item of the list and return it to the stock_row variable
+    
     """
     When used with a for loop, the zip() method allows  us to iterate through two or more iterable data 
     structures in a single loop. In this case, our iterable data structures, are lists.
@@ -102,7 +111,7 @@ def main():
     sales_data = [int(num) for num in data] # List comprehension used to convert entered values to integers
     update_sales_worksheet(sales_data)
     new_surplus_data = calulate_surplus_data(sales_data)
-    print(new_surplus_data)
+    update_surplus_worksheet(new_surplus_data)
 
 print("Welcome to Love Sandwiches Data Automation")
 main()
