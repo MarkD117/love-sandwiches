@@ -56,27 +56,19 @@ def validate_data(values):
     return True
 
 
-def update_sales_worksheet(data):
+def update_worksheet(data, worksheet):
     """
-    Update sales worksheet, add new row with the list data provided.
+    Receives a list of integers to be inserted into a worksheet
+    Update the relevant worksheet with the data provided
     """
-    print("Updating sales worksheet...\n")
-    # Uses SHEET variable assigned above with the gspread worksheet() method to access worksheet.
+    print(f"Updating {worksheet} worksheet...\n")
+    # Uses 'SHEET' variable assigned above with the gspread worksheet() method to access worksheet.
     # Value passed to worksheet() method relates to name of the current worksheet page.
-    sales_worksheet = SHEET.worksheet("sales") 
+    worksheet_to_update = SHEET.worksheet(worksheet)
     # Uses gspread append_row() method to pass our data to the spreadsheet.
     # The append_row method adds a new row to the  end of our data in the worksheet selected.
-    sales_worksheet.append_row(data)
-    print("Sales worksheet updated successfully.\n")
-
-def update_surplus_worksheet(data):
-    """
-    Update surplus worksheet, add new row with the list data provided.
-    """
-    print("Updating surplus worksheet...\n")
-    surplus_worksheet = SHEET.worksheet("surplus") 
-    surplus_worksheet.append_row(data)
-    print("Surplus worksheet updated successfully.\n")
+    worksheet_to_update.append_row(data)
+    print(f"{worksheet} worksheet updated successfully.\n")
 
 def calulate_surplus_data(sales_row):
     """
@@ -109,9 +101,9 @@ def main():
     """
     data = get_sales_data()
     sales_data = [int(num) for num in data] # List comprehension used to convert entered values to integers
-    update_sales_worksheet(sales_data)
+    update_worksheet(sales_data, "sales")
     new_surplus_data = calulate_surplus_data(sales_data)
-    update_surplus_worksheet(new_surplus_data)
+    update_worksheet(new_surplus_data, "surplus")
 
 print("Welcome to Love Sandwiches Data Automation")
 main()
