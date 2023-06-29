@@ -69,7 +69,7 @@ def update_worksheet(data, worksheet):
     worksheet_to_update.append_row(data)
     print(f"{worksheet} worksheet updated successfully.\n")
 
-def calulate_surplus_data(sales_row):
+def calculate_surplus_data(sales_row):
     """
     Compare sales with stock and calculate the surplus for each item type.
 
@@ -139,13 +139,15 @@ def main():
     data = get_sales_data()
     sales_data = [int(num) for num in data] # List comprehension used to convert entered values to integers
     update_worksheet(sales_data, "sales")
-    new_surplus_data = calulate_surplus_data(sales_data)
-    update_worksheet(new_surplus_data, "surplus")
+
+    new_surplus_row = calculate_surplus_data(sales_data)
+    update_worksheet(new_surplus_row, "surplus")
+
     sales_columns = get_last_5_entries_sales()
     stock_data = calculate_stock_data(sales_columns)
     update_worksheet(stock_data, "stock")
+    return stock_data
 
 
-print("Welcome to Love Sandwiches Data Automation")
-main()
-
+print("Welcome to Love Sandwiches data automation.\n")
+stock_data = main()
