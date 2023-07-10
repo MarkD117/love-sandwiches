@@ -151,3 +151,17 @@ def main():
 
 print("Welcome to Love Sandwiches data automation.\n")
 stock_data = main()
+
+
+def get_stock_values(data):
+    """
+    Gets sandwhich heading types and stock data, 
+    returns sandwhiches to be made for next market day.
+    """
+    headings = SHEET.worksheet("stock").row_values(1) # gspread row_values() method used to get the first row values of the stock sheet
+    stock_dict = dict(zip(headings, data)) # Zip() method used to convert both lists to a dictionary
+    return stock_dict
+
+print("Make the following numbers of sandwiches for the next market:\n")
+stock_values = get_stock_values(stock_data)
+print(stock_values)
